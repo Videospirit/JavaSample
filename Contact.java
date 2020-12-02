@@ -1,4 +1,4 @@
-package java_assignment2;
+package java_assignment2.pkg2;
 
 public class Contact {
     private String firstName,lastName,homePhone,workPhone,email,notes;
@@ -112,9 +112,9 @@ public class Contact {
         return birthday.getMonthShortForm();
     }
 
-    public String getBirthMonthLongForm(){
+    /*public String getBirthMonthLongForm(){
         return birthday.getMonthLongForm();
-    }
+    }*/
 
     public int getBirthYear(){
         return birthday.getYear();
