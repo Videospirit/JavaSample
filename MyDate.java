@@ -6,7 +6,7 @@ package java_assignment2.pkg2;
  */
 public class MyDate {
  private int day,month,year;
- public String[]months = new String[]{"January","February","March","April","May","June","July","August","September","October","November","Dece,ber"};
+ public String[]months = new String[]{"January","February","March","April","May","June","July","August","September","October","November","December"};
  
 
  public MyDate(int d, int m ,int y){
