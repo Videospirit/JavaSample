@@ -122,7 +122,7 @@ public class Assignment2 extends Application {
                 }
             }
         });
-        v.getChildren().addAll(confirmText,fNameBox,lNameBox,hPhoneBox,wPhoneBox,aSt1Box,aSt2Box,aPostCodeBox,aProvinceBox,aCountryBox,emailBox,birthday,notesBox,btnAddContact);
+        v.getChildren().addAll(confirmText,fNameBox,lNameBox,hPhoneBox,wPhoneBox,aSt1Box,aSt2Box,aCityBox,aPostCodeBox,aProvinceBox,aCountryBox,emailBox,birthday,notesBox,btnAddContact);
         
         return v;
     }
