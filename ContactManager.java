@@ -19,4 +19,13 @@ public class ContactManager {
         cList = new Contact[max];
     }
     
+    public boolean addContact(String firstName, String lastName, String homePhone, String workPhone, Address homeAddress, String email, String notes, MyDate birthday){
+        if(currentContact<maxcontacts){
+            cList[currentContact]=new Contact(firstName,lastName,homePhone,workPhone,homeAddress,email,notes,birthday); 
+            currentContact++;
+            return true;
+        }
+        return false;
+    }
+    
 }
