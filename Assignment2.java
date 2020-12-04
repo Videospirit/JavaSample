@@ -1,8 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+Project Members:
+Jeremy Buchanan, 100928225
+Adam Vandyke, 101023594
+Ibrahim Elmi 101241704
+*/
 package java_assignment2.pkg2;
 
 import java.util.Arrays;
@@ -208,17 +209,11 @@ public class Assignment2 extends Application {
                 String l = lName.getText();
                
                 if(cMan.findContact(f,l)!=null){
-                    
+                    confirmText.setText(cMan.deleteContact(f,l));
                 } else {
                     confirmText.setText(f+" "+l+" contact does not exist");
-           
-                 }
-            
-                if(cMan.deleteContact(f, l)!=null){
-                     confirmText.setText(f+" "+l+" contact has been deleted");
-                   
                 }
-                    
+               
                   
             } 
         });
@@ -295,7 +290,6 @@ public class Assignment2 extends Application {
                 } else {
                     confirmText.setText(f+" "+l+" could not be found.");
                 }
-                
             }
         });
         v.getChildren().addAll(confirmText,fNameBox,lNameBox,btnFindContact);

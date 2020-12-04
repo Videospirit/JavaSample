@@ -1,12 +1,18 @@
+/*
+Project Members:
+Jeremy Buchanan, 100928225
+Adam Vandyke, 101023594
+Ibrahim Elmi 101241704
+*/
 package java_assignment2.pkg2;
 
 /**
  *
- * @author Ibrahim
+ * @author elmii
  */
 public class MyDate {
  private int day,month,year;
- public String[]months = new String[]{"January","February","March","April","May","June","July","August","September","October","November","Dece,ber"};
+ public String[]months = new String[]{"January","February","March","April","May","June","July","August","September","October","November","December"};
  
 
  public MyDate(int d, int m ,int y){

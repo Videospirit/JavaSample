@@ -1,3 +1,10 @@
+/*
+Project Members:
+Jeremy Buchanan, 100928225
+Adam Vandyke, 101023594
+Ibrahim Elmi 101241704
+*/
+
 package java_assignment2.pkg2;
 
 public class Contact {
