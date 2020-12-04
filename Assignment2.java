@@ -192,7 +192,8 @@ public class Assignment2 extends Application {
         
         return v;
     }
-  public VBox viewDeleteContact(){       
+  public VBox viewDeleteContact(){ 
+	  //new vbox to add element to
         VBox v = new VBox();
         TextField fName=new TextField();
         Label fNameLabel=new Label("First Name: ");
@@ -210,6 +211,7 @@ public class Assignment2 extends Application {
             
             @Override
             public void handle(ActionEvent event) {
+		 //variable created for first name,last name   
                 String f = fName.getText();
                 String l = lName.getText();
                
@@ -229,6 +231,7 @@ public class Assignment2 extends Application {
          
     
  public VBox viewFindContact(){
+	 //new vbox to add elements to 
         VBox v = new VBox();
         TextField fName=new TextField();
         Label fNameLabel=new Label("First Name: ");
@@ -246,6 +249,7 @@ public class Assignment2 extends Application {
             
            @Override
             public void handle(ActionEvent event) {
+		//variable created for first name, last name    
                 String f = fName.getText();
                 String l = lName.getText();
              
