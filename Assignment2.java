@@ -253,8 +253,42 @@ public class Assignment2 extends Application {
         v.getChildren().addAll(confirmText,cNameBox,btnSearchContact);
         return v;
     }
-	
-    public VBox viewEditContact(String firstName,String lastName){
+
+    public VBox viewEditContact(BorderPane root){
+        VBox v = new VBox();
+        TextField fName=new TextField();
+        Label fNameLabel=new Label("First Name: ");
+        fNameLabel.setLabelFor(fName);
+        HBox fNameBox = new HBox();
+        fNameBox.getChildren().addAll(fNameLabel,fName);
+        TextField lName=new TextField();
+        Label lNameLabel=new Label("Last Name: ");
+        lNameLabel.setLabelFor(lName);
+        HBox lNameBox = new HBox();
+        lNameBox.getChildren().addAll(lNameLabel,lName);
+        Button btnFindContact = new Button("Find Contact");
+        Text confirmText = new Text("Enter a first and last name to find that contact");
+        btnFindContact.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                String f = fName.getText();
+                String l = lName.getText(); 
+                if(cMan.findContact(f,l)!=null){
+                    root.setCenter(viewEditSpecificContact(f,l));
+                } else {
+                    confirmText.setText(f+" "+l+" could not be found.");
+                }
+                  
+            } 
+        });
+        v.getChildren().addAll(confirmText,fNameBox,lNameBox,btnFindContact);
+        
+        return v;
+    }
+    
+    
+    public VBox viewEditSpecificContact(String firstName,String lastName){
         VBox v = new VBox();
         Contact activeC=cMan.findContact(firstName,lastName);
         Address activeA=activeC.getAddress();
@@ -411,7 +445,7 @@ public class Assignment2 extends Application {
             
             @Override
             public void handle(ActionEvent event) {
-                root.setCenter(viewEditContact("Jeremy0","Buchanan"));
+                root.setCenter(viewEditContact(root));
             }
         });
         
