@@ -25,7 +25,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
  *
  * @author Jeremy, Adam, Ibrahim
  */
-public class assignment2 extends Application {
+public class Assignment2 extends Application {
     static ContactManager cMan;
     private TableView table = new TableView();
 	
@@ -204,12 +204,14 @@ public class assignment2 extends Application {
             @Override
             public void handle(ActionEvent event) {
                 String f = fName.getText();
-                String l = lName.getText(); 
-                if(cMan.deleteContact(f,l)!=null){
-                   
+                String l = lName.getText();
+               
+                if(cMan.findContact(f,l)!=null){
+                    
                 } else {
-                    confirmText.setText(f+" "+l+" was not found to be deleted.");
+                    confirmText.setText(f+" "+l+" contact does not exist");
                 }
+               
                   
             } 
         });
@@ -235,20 +237,60 @@ public class assignment2 extends Application {
         Text confirmText = new Text("Please enter first and last name to find a contact");
         btnFindContact.setOnAction(new EventHandler<ActionEvent>() {
             
-            @Override
+           @Override
             public void handle(ActionEvent event) {
                 String f = fName.getText();
-                String l = lName.getText(); 
-                if(cMan.findContact(f,l)!=null){
-                   
+                String l = lName.getText();
+               if(cMan.findContact(fName.getText())){               
+        
+                    final Label label = new Label("Contacts List:");
+                    label.setFont(new Font("Arial", 20));
+
+                    table.setEditable(true);
+                    
+                    table.getItems().clear();
+                    table.getColumns().clear();
+                    
+                    TableColumn firstNameCol = new TableColumn("First Name");
+                    firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+
+                    TableColumn lastNameCol = new TableColumn("Last Name");
+                    lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+
+                    TableColumn phoneCol = new TableColumn("Phone");
+                    TableColumn homePhoneCol = new TableColumn("Home");
+                    homePhoneCol.setCellValueFactory(new PropertyValueFactory<>("homePhone"));
+                    TableColumn workPhoneCol = new TableColumn("Work");
+                    workPhoneCol.setCellValueFactory(new PropertyValueFactory<>("workPhone"));
+                    phoneCol.getColumns().addAll(homePhoneCol, workPhoneCol);
+
+                    TableColumn homeAddressCol = new TableColumn("Home Address");
+                    homeAddressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
+
+                    TableColumn emailCol = new TableColumn("Email");
+                    emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
+
+                    TableColumn birthdayCol = new TableColumn("Birthday");
+                    birthdayCol.setCellValueFactory(new PropertyValueFactory<>("birthday"));
+
+                    TableColumn notesCol = new TableColumn("Notes");
+                    notesCol.setCellValueFactory(new PropertyValueFactory<>("notes"));
+
+                    table.getColumns().addAll(firstNameCol, lastNameCol, phoneCol, homeAddressCol, emailCol, birthdayCol, notesCol);
+
+                    Contact[] contacts = cMan.viewContactsInCity(fName.getText());
+
+                    for (Contact c : contacts) {
+                        table.getItems().add(c);
+                     }
+
+                    v.getChildren().addAll(table);
                 } else {
                     confirmText.setText(f+" "+l+" could not be found.");
                 }
-                  
-            } 
+            }
         });
-        v.getChildren().addAll(confirmText,fNameBox,lNameBox,btnFindContact);
-        
+        v.getChildren().addAll(confirmText,fNameBox,btnFindContact);
         return v;
         
     }	
@@ -268,6 +310,7 @@ public class assignment2 extends Application {
             
             @Override
             public void handle(ActionEvent event) {
+                
                 if(cMan.findCity(cName.getText())){               
         
                     final Label label = new Label("Contacts List:");
@@ -312,9 +355,7 @@ public class assignment2 extends Application {
                      }
 
                     v.getChildren().addAll(table);
-                } else {
-                    confirmText.setText("City " + cName.getText() + " could not be found please modify your search parameters.");
-                }
+                } 
             }
         });
         v.getChildren().addAll(confirmText,cNameBox,btnSearchContact);
