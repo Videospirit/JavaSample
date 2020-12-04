@@ -43,7 +43,7 @@ public class MyDate {
  public int getYear(){
     return year;
  }
-
+//output string
  @Override
  public String toString(){
      return "MyDate{"+
