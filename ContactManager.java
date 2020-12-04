@@ -12,16 +12,18 @@ package java_assignment2.pkg2;
  */
 public class ContactManager {
     private Contact[] cList;
-    private int currentContact,maxcontacts;
+    //currentContact is the number of Contacts in cList. maxContacts is the maximum number
+    private int currentContact,maxContacts;
     
     public ContactManager(int max){
         currentContact=0;
-        maxcontacts=max;
+        maxContacts=max;
         cList = new Contact[max];
     }
     
+    //Adds a new Contact to the cList array
     public boolean addContact(String firstName, String lastName, String homePhone, String workPhone, Address homeAddress, String email, String notes, MyDate birthday){
-        if(currentContact<maxcontacts){
+        if(currentContact<maxContacts){
             cList[currentContact]=new Contact(firstName,lastName,homePhone,workPhone,homeAddress,email,notes,birthday); 
             currentContact++;
             return true;
