@@ -77,7 +77,7 @@ public class ContactManager {
             if(cList[i].getFirstName().equals(firstName) && cList[i].getLastName().equals(lastName)){
             s = "Contact " + cList[i].getFirstName() + " number " + cList[i].getHomePhone() + " deleted";
             cList[i] = null;
-            currentContact ++;
+            currentContact --;
             return s;
     }
     }
