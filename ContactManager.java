@@ -1,13 +1,14 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+Project Members:
+Jeremy Buchanan, 100928225
+Adam Vandyke, 101023594
+Ibrahim Elmi 101241704
+*/
 package java_assignment2.pkg2;
 
 /**
  *
- * @author Jeremy , Adam
+ * @author Jeremy , Adam, Ibrahim
  */
 public class ContactManager {
     private Contact[] cList;
@@ -64,26 +65,33 @@ public class ContactManager {
         }
         return false;
     }
-   
-
+       public boolean findContact(String firstname){
+        Contact[] s = new Contact[currentContact];
+        for ( int i = 0; i < currentContact; i++){
+            if(cList[i].getFirstName().equals(firstname)){
+                return true;
+            }
+        }
+        return false;
+    }
 
     
-       public String deleteContact(String firstName, String lastName){
-            String s = "";
-            if(findContact(firstName, lastName) == null){
+    public String deleteContact(String firstName, String lastName){
+        String s = "";
+        if(findContact(firstName, lastName) == null){
             s = "Contact not found";
             return s;
         }
-            for (int i = 0; i < currentContact; i++){
+        for (int i = 0; i < currentContact; i++){
             if(cList[i].getFirstName().equals(firstName) && cList[i].getLastName().equals(lastName)){
-            s = "First name " + cList[i].getFirstName() + " last name " + cList[i].getLastName() + " deleted";
-            cList[i] = null;
-            currentContact --;
-            return s;
-    }
-    }
-            s = "Contact deleted";
-            return s;
+                s = "First name " + cList[i].getFirstName() + " last name " + cList[i].getLastName() + " deleted";
+                cList[i] = cList[currentContact-1];
+                currentContact --;
+                return s;
+            }
+        }
+        s = "Contact deleted";
+        return s;
     }
 
     public Contact[] viewContactsInCity(String city){

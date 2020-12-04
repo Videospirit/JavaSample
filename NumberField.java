@@ -1,8 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+Project Members:
+Jeremy Buchanan, 100928225
+Adam Vandyke, 101023594
+Ibrahim Elmi 101241704
+*/
 package java_assignment2.pkg2;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
