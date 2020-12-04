@@ -281,9 +281,9 @@ public class Assignment2 extends Application {
 
                     table.getColumns().addAll(firstNameCol, lastNameCol, phoneCol, homeAddressCol, emailCol, birthdayCol, notesCol);
 
-                    Contact[] contacts = cMan.viewContactsInCity(fName.getText());
-
-                    table.getItems().addAll(Arrays.asList(contacts));
+                    
+                    table.getItems().add(c);
+                    
 
                     v.getChildren().addAll(table);
                 } else {
