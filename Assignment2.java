@@ -211,8 +211,14 @@ public class Assignment2 extends Application {
                     
                 } else {
                     confirmText.setText(f+" "+l+" contact does not exist");
+           
+                 }
+            
+                if(cMan.deleteContact(f, l)!=null){
+                     confirmText.setText(f+" "+l+" contact has been deleted");
+                   
                 }
-               
+                    
                   
             } 
         });
@@ -289,6 +295,7 @@ public class Assignment2 extends Application {
                 } else {
                     confirmText.setText(f+" "+l+" could not be found.");
                 }
+                
             }
         });
         v.getChildren().addAll(confirmText,fNameBox,lNameBox,btnFindContact);
