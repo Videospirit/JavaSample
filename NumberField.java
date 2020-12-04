@@ -11,6 +11,8 @@ import javafx.scene.control.TextField;
 /**
  *
  * @author Jeremy
+ *This class is used to create a Textfield object that only accepts numerical input.
+ *Reference: https://stackoverflow.com/questions/57853232/how-to-change-textfield-inputs-to-only-numbers-in-javafx
  */
 public class NumberField extends TextField {
 
