@@ -5,6 +5,7 @@
  */
 package java_assignment2.pkg2;
 
+import java.util.Arrays;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -241,7 +242,9 @@ public class Assignment2 extends Application {
             public void handle(ActionEvent event) {
                 String f = fName.getText();
                 String l = lName.getText();
-               if(cMan.findContact(fName.getText())){               
+             
+                if(cMan.findContact(f,l)!=null){
+                Contact c = cMan.findContact(f,l);
         
                     final Label label = new Label("Contacts List:");
                     label.setFont(new Font("Arial", 20));
@@ -280,9 +283,7 @@ public class Assignment2 extends Application {
 
                     Contact[] contacts = cMan.viewContactsInCity(fName.getText());
 
-                    for (Contact c : contacts) {
-                        table.getItems().add(c);
-                     }
+                    table.getItems().addAll(Arrays.asList(contacts));
 
                     v.getChildren().addAll(table);
                 } else {
@@ -290,7 +291,7 @@ public class Assignment2 extends Application {
                 }
             }
         });
-        v.getChildren().addAll(confirmText,fNameBox,btnFindContact);
+        v.getChildren().addAll(confirmText,fNameBox,lNameBox,btnFindContact);
         return v;
         
     }	
