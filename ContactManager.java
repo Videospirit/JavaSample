@@ -47,7 +47,7 @@ public class ContactManager {
         }
         return null;
     }
-    
+    //Method for showing all Contacts.
     public Contact[] showContact(String firstName, String lastName){
         Contact[] s = new Contact[currentContact];
         for ( int i = 0; i < currentContact; i++){
@@ -57,7 +57,7 @@ public class ContactManager {
         }
         return s;
     }
-    
+    //Method for locating Contacts with passed city param returns true if successful.
     public boolean findCity(String city){
         Contact[] s = new Contact[currentContact];
         for ( int i = 0; i < currentContact; i++){
