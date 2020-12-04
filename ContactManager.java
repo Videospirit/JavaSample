@@ -64,15 +64,8 @@ public class ContactManager {
         }
         return false;
     }
-       public boolean findContact(String firstname){
-        Contact[] s = new Contact[currentContact];
-        for ( int i = 0; i < currentContact; i++){
-            if(cList[i].getFirstName().equals(firstname)){
-                return true;
-            }
-        }
-        return false;
-    }
+   
+
 
     
        public String deleteContact(String firstName, String lastName){
