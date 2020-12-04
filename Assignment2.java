@@ -302,11 +302,16 @@ public class Assignment2 extends Application {
         
     }	
     public VBox viewContactByCity(){
+	//Create new VBox to add table/elements to.
         VBox v = new VBox();
+	    
+	//Create new table view to add elements to.
         table = new TableView();
         
         TextField cName=new TextField();
         Label cNameLabel=new Label("City Name: ");
+	
+	//Set city name variable to input box content.
         cNameLabel.setLabelFor(cName);
         HBox cNameBox = new HBox();
         cNameBox.getChildren().addAll(cNameLabel,cName);
@@ -315,9 +320,11 @@ public class Assignment2 extends Application {
         Text confirmText = new Text("Please Enter the City Name");
         btnSearchContact.setOnAction(new EventHandler<ActionEvent>() {
             
+            //Button event handler to generate table.
             @Override
             public void handle(ActionEvent event) {
                 
+		//Check if input box contents match any contacts cities.
                 if(cMan.findCity(cName.getText())){               
         
                     final Label label = new Label("Contacts List:");
@@ -355,8 +362,10 @@ public class Assignment2 extends Application {
 
                     table.getColumns().addAll(firstNameCol, lastNameCol, phoneCol, homeAddressCol, emailCol, birthdayCol, notesCol);
 
+		    //Add all contacts from contacts list that match params.
                     Contact[] contacts = cMan.viewContactsInCity(cName.getText());
 
+		    //Add all contacts from contacts list.
                     for (Contact c : contacts) {
                         table.getItems().add(c);
                      }
