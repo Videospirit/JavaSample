@@ -28,7 +28,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
  * @author Jeremy, Adam, Ibrahim
  */
 public class Assignment2 extends Application {
-    static ContactManager cMan;
+    static ContactManager cMan; // The primary Manager for all of our data.
     private TableView table = new TableView();
 	
     public Text viewWelcome(){
@@ -36,13 +36,13 @@ public class Assignment2 extends Application {
         return t;
     }
     
+    //Generates a VBox Layout with all the necessary components to Add a new contact to the Address Book
     public VBox viewAddContact(){
         VBox v = new VBox();
-        // addContact(String firstName, String lastName, String homePhone, String workPhone, Address homeAddress,
-        //String email, String notes, MyDate birthday){
-        //public Address(String st1,String st2,String city,String postCode,String prov,String country){
-    
-        
+        /* Generating Gui Components to take input for Constructors:
+	    addContact(String firstName, String lastName, String homePhone, String workPhone, Address homeAddress,
+        String email, String notes, MyDate birthday)
+        Address(String st1,String st2,String city,String postCode,String prov,String country){*/
         TextField fName=new TextField();
         Label fNameLabel=new Label("First Name: ");
         fNameLabel.setLabelFor(fName);
@@ -99,7 +99,7 @@ public class Assignment2 extends Application {
         HBox emailBox = new HBox();
         emailBox.getChildren().addAll(emailLabel,email);
         HBox birthday = new HBox();
-        // public MyDate(int d, int m ,int y){
+        // GUI input for MyDate(int d, int m ,int y)
         NumberField day = new NumberField();
         Label dayLabel = new Label("Birthday Day: ");
         dayLabel.setLabelFor(day);
@@ -115,16 +115,20 @@ public class Assignment2 extends Application {
         notesLabel.setLabelFor(notes);
         HBox notesBox = new HBox();
         notesBox.getChildren().addAll(notesLabel,notes);
+	//Button and user Feedback Text    
         Button btnAddContact = new Button("Submit");
         Text confirmText = new Text("Please Enter the Contact Information");
-        btnAddContact.setOnAction(new EventHandler<ActionEvent>() {
+        //When the button is clicked, adds a new contact
+	btnAddContact.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
+		    //Validates the Integers
                 if(!day.getText().equals("")&&!month.getText().equals("")&&!year.getText().equals("")){
                     if(Integer.parseInt(month.getText()) >12){
                         confirmText.setText("Your birth month must be a number between 1 and 12");
                     } else {
+			//Adds a new contact to the Contact Manager cList if it hasn't reached the maximum number of contacts yet
                         if(cMan.addContact(fName.getText(),lName.getText(),hPhone.getText(),wPhone.getText(),new Address(aSt1.getText(),aSt2.getText(),aCity.getText(),aPostCode.getText(),aProvince.getText(),aCountry.getText()),email.getText(),notes.getText(),new MyDate(Integer.parseInt(day.getText()),Integer.parseInt(month.getText()),Integer.parseInt(year.getText())))){
                             confirmText.setText(fName.getText()+" "+lName.getText()+" Has Been added succesfully");
                         } else {
@@ -382,6 +386,7 @@ public class Assignment2 extends Application {
         return v;
     }
 
+    //This Generates a VBox layout to act as a midpoint between the Edit Specific Contact Layout and the Rest of the Application.
     public VBox viewEditContact(BorderPane root){
         VBox v = new VBox();
         TextField fName=new TextField();
@@ -396,7 +401,9 @@ public class Assignment2 extends Application {
         lNameBox.getChildren().addAll(lNameLabel,lName);
         Button btnFindContact = new Button("Find Contact");
         Text confirmText = new Text("Enter a first and last name to find that contact");
-        btnFindContact.setOnAction(new EventHandler<ActionEvent>() {
+        /*When clicked, takes a First and Last name from TextFields, checks if a Contact with those names exists, and opens an edit Contact layout for 
+	the first contact in the cList with that combination of First and Last Name.*/
+	btnFindContact.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
@@ -415,7 +422,7 @@ public class Assignment2 extends Application {
         return v;
     }
     
-    
+    //Generates a layout very similar to Add a Contact, except this one updates an existing Contact rather than adding a new one.
     public VBox viewEditSpecificContact(String firstName,String lastName){
         VBox v = new VBox();
         Contact activeC=cMan.findContact(firstName,lastName);
@@ -477,7 +484,6 @@ public class Assignment2 extends Application {
         HBox emailBox = new HBox();
         emailBox.getChildren().addAll(emailLabel,email);
         HBox birthday = new HBox();
-        // public MyDate(int d, int m ,int y){
         NumberField day = new NumberField();
         day.setText(""+activeB.getDay());
         Label dayLabel = new Label("Birthday Day: ");
@@ -506,6 +512,7 @@ public class Assignment2 extends Application {
                     if(Integer.parseInt(month.getText()) >12){
                         confirmText.setText("Your birth month must be a number between 1 and 12");
                     } else {
+			//Updates all data related to the active Contact to match those in the text field, after validating those that can error.
                         activeC.setFirstName(fName.getText());
                         activeC.setLastName(lName.getText());
                         activeC.setHomePhone(hPhone.getText());
@@ -535,11 +542,9 @@ public class Assignment2 extends Application {
         return v;
     }
     
+	//Initializes the CMan object.
     public void init(){
         cMan = new ContactManager(100);
-        for(int x=0;x<4;x++){
-            cMan.addContact("Jeremy"+x,"Buchanan","1234567890","1234567890",new Address("301 Robina Avenue","","Toronto","N0G2V0","ON","Canada"),"100928225@georgebrown.ca","I wanna be the guy",new MyDate(5,10,2007));
-        }
     }
     
     @Override
@@ -560,7 +565,7 @@ public class Assignment2 extends Application {
         HBox menu = new HBox();
         menu.getChildren().addAll(btn1,btn2,btn3,btn4,btn5,btn6);
         root.setTop(menu);
-        
+        //The Buttons all change the layout that is being displayed without any need to change the scene and keeps the current Top Button Menu in place as well.
         btn1.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
@@ -610,7 +615,7 @@ public class Assignment2 extends Application {
         });
 		
         Scene scene = new Scene(root, 900, 900);
-        
+        //Loads the GUI
         primaryStage.setTitle("Java Assignment 2");
         primaryStage.setScene(scene);
         primaryStage.show();
