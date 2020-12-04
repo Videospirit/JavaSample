@@ -18,13 +18,18 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.text.Font;
+import javafx.scene.control.cell.PropertyValueFactory;
 /**
  *
- * @author Jeremy
+ * @author Jeremy, Adam
  */
 public class Assignment2 extends Application {
     static ContactManager cMan;
-    
+    private TableView table = new TableView();
+	
     public Text viewWelcome(){
         Text t = new Text("Welcome to the Java Assignment 2 Project");
         return t;
@@ -127,6 +132,121 @@ public class Assignment2 extends Application {
         return v;
     }
     
+	 public VBox viewAllContacts(){
+        VBox v = new VBox();
+        table = new TableView();
+        
+        final Label label = new Label("Contacts List:");
+        label.setFont(new Font("Arial", 20));
+
+        table.setEditable(true);
+        
+        TableColumn firstNameCol = new TableColumn("First Name");
+        firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+
+        TableColumn lastNameCol = new TableColumn("Last Name");
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+
+        TableColumn phoneCol = new TableColumn("Phone");
+        TableColumn homePhoneCol = new TableColumn("Home");
+        homePhoneCol.setCellValueFactory(new PropertyValueFactory<>("homePhone"));
+        TableColumn workPhoneCol = new TableColumn("Work");
+        workPhoneCol.setCellValueFactory(new PropertyValueFactory<>("workPhone"));
+        phoneCol.getColumns().addAll(homePhoneCol, workPhoneCol);
+
+        TableColumn homeAddressCol = new TableColumn("Home Address");
+        homeAddressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
+
+        TableColumn emailCol = new TableColumn("Email");
+        emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
+
+        TableColumn birthdayCol = new TableColumn("Birthday");
+        birthdayCol.setCellValueFactory(new PropertyValueFactory<>("birthday"));
+
+        TableColumn notesCol = new TableColumn("Notes");
+        notesCol.setCellValueFactory(new PropertyValueFactory<>("notes"));
+
+        table.getColumns().addAll(firstNameCol, lastNameCol, phoneCol, homeAddressCol, emailCol, birthdayCol, notesCol);
+
+        Contact[] contacts = cMan.allContacts();
+
+        for (Contact c : contacts) {
+            table.getItems().add(c);
+        }
+        v.getChildren().addAll(table);
+        
+        return v;
+    }
+	
+	public VBox viewContactByCity(){
+        VBox v = new VBox();
+        table = new TableView();
+        
+        TextField cName=new TextField();
+        Label cNameLabel=new Label("City Name: ");
+        cNameLabel.setLabelFor(cName);
+        HBox cNameBox = new HBox();
+        cNameBox.getChildren().addAll(cNameLabel,cName);
+        
+        Button btnSearchContact = new Button("Submit");
+        Text confirmText = new Text("Please Enter the City Name");
+        btnSearchContact.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                if(cMan.findCity(cName.getText())){               
+        
+                    final Label label = new Label("Contacts List:");
+                    label.setFont(new Font("Arial", 20));
+
+                    table.setEditable(true);
+                    
+                    table.getItems().clear();
+                    table.getColumns().clear();
+                    
+                    TableColumn firstNameCol = new TableColumn("First Name");
+                    firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+
+                    TableColumn lastNameCol = new TableColumn("Last Name");
+                    lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+
+                    TableColumn phoneCol = new TableColumn("Phone");
+                    TableColumn homePhoneCol = new TableColumn("Home");
+                    homePhoneCol.setCellValueFactory(new PropertyValueFactory<>("homePhone"));
+                    TableColumn workPhoneCol = new TableColumn("Work");
+                    workPhoneCol.setCellValueFactory(new PropertyValueFactory<>("workPhone"));
+                    phoneCol.getColumns().addAll(homePhoneCol, workPhoneCol);
+
+                    TableColumn homeAddressCol = new TableColumn("Home Address");
+                    homeAddressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
+
+                    TableColumn emailCol = new TableColumn("Email");
+                    emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
+
+                    TableColumn birthdayCol = new TableColumn("Birthday");
+                    birthdayCol.setCellValueFactory(new PropertyValueFactory<>("birthday"));
+
+                    TableColumn notesCol = new TableColumn("Notes");
+                    notesCol.setCellValueFactory(new PropertyValueFactory<>("notes"));
+
+                    table.getColumns().addAll(firstNameCol, lastNameCol, phoneCol, homeAddressCol, emailCol, birthdayCol, notesCol);
+
+                    Contact[] contacts = cMan.viewContactsInCity(cName.getText());
+
+                    for (Contact c : contacts) {
+                        table.getItems().add(c);
+                     }
+
+                    v.getChildren().addAll(table);
+                } else {
+                    confirmText.setText("City " + cName.getText() + " could not be found please modify your search parameters.");
+                }
+            }
+        });
+        v.getChildren().addAll(confirmText,cNameBox,btnSearchContact);
+        return v;
+    }
+	
     public void init(){
         cMan = new ContactManager(100);
     }
@@ -158,6 +278,22 @@ public class Assignment2 extends Application {
             }
         });
         
+		 btn4.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                root.setCenter(viewAllContacts());
+            }
+        });
+         
+         btn6.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                root.setCenter(viewContactByCity());
+            }
+        });
+		
         Scene scene = new Scene(root, 900, 900);
         
         primaryStage.setTitle("Java Assignment 2");

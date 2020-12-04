@@ -7,7 +7,7 @@ package java_assignment2.pkg2;
 
 /**
  *
- * @author Jeremy
+ * @author Jeremy , Adam
  */
 public class ContactManager {
     private Contact[] cList;
@@ -27,5 +27,51 @@ public class ContactManager {
         }
         return false;
     }
+	
+     public Contact[] allContacts() {
+        Contact[] s = new Contact[currentContact];
+        for (int i = 0; i < currentContact; i++) {
+            s[i] = cList[i];
+        }
+        return s;
+    }
     
+    public Contact findContact(String firstName, String lastName){
+        for (int i = 0; i < currentContact; i++){
+            if(cList[i].getFirstName().equals(firstName) && cList[i].getLastName().equals(lastName)) {
+                return cList[i];
+            }
+        }
+        return null;
+    }
+    
+    public Contact[] showContact(String firstName, String lastName){
+        Contact[] s = new Contact[currentContact];
+        for ( int i = 0; i < currentContact; i++){
+            if(cList[i].getFirstName().equals(firstName) && cList[i].getLastName().equals(lastName)) {
+                s[i] = cList[i];
+            }
+        }
+        return s;
+    }
+    
+    public boolean findCity(String city){
+        Contact[] s = new Contact[currentContact];
+        for ( int i = 0; i < currentContact; i++){
+            if(cList[i].getCity().equals(city)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public Contact[] viewContactsInCity(String city){
+        Contact[] s = new Contact[currentContact];
+        for ( int i = 0; i < currentContact; i++){
+            if(cList[i].getCity().equals(city)){
+                s[i] = cList[i];
+            }
+        }
+        return s;
+    }
 }
