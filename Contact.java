@@ -12,6 +12,7 @@ public class Contact {
     private Address homeAddress;
     private MyDate birthday;
 
+    //Constructor for new Contacts.
     public Contact(String firstName, String lastName, String homePhone, String workPhone, Address homeAddress, String email, String notes, MyDate birthday) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -22,7 +23,8 @@ public class Contact {
         this.birthday = birthday;
         this.notes = notes;
     }
-
+   
+    //Return and set methods for all Contact variables.
     public String getFirstName() {
         return firstName;
     }
@@ -73,7 +75,8 @@ public class Contact {
     public String getCity(){
         return homeAddress.city;
     }
-
+    
+    // Method for setting Contact address.
     public void setHomeAddress(String streetInfo1, String streetInfo2, String province, String city, String postalCode, String country) {
         homeAddress.streetInfo1 = streetInfo1;
         homeAddress.streetInfo2 = streetInfo2;
@@ -133,10 +136,6 @@ public class Contact {
         return birthday.getMonthShortForm();
     }
 
-    /*public String getBirthMonthLongForm(){
-        return birthday.getMonthLongForm();
-    }*/
-
     public int getBirthYear(){
         return birthday.getYear();
     }
@@ -145,6 +144,7 @@ public class Contact {
         birthday.setYear(birthYear);
     }
 
+    // To string for output.
     @Override
     public String toString() {
         return "Contact{" +
