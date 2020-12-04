@@ -14,7 +14,7 @@ public class MyDate {
  private int day,month,year;
  public String[]months = new String[]{"January","February","March","April","May","June","July","August","September","October","November","December"};
  
-
+//variable created for date,month,year
  public MyDate(int d, int m ,int y){
     this.day=d;
     this.month=m;
