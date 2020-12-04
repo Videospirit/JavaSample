@@ -10,7 +10,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -120,10 +119,18 @@ public class Assignment2 extends Application {
             
             @Override
             public void handle(ActionEvent event) {
-                if(cMan.addContact(fName.getText(),lName.getText(),hPhone.getText(),wPhone.getText(),new Address(aSt1.getText(),aSt2.getText(),aCity.getText(),aPostCode.getText(),aProvince.getText(),aCountry.getText()),email.getText(),notes.getText(),new MyDate(Integer.parseInt(day.getText()),Integer.parseInt(month.getText()),Integer.parseInt(year.getText())))){
-                    confirmText.setText(fName.getText()+" "+lName.getText()+" Has Been added succesfully");
+                if(!day.getText().equals("")&&!month.getText().equals("")&&!year.getText().equals("")){
+                    if(Integer.parseInt(month.getText()) >12){
+                        confirmText.setText("Your birth month must be a number between 1 and 12");
+                    } else {
+                        if(cMan.addContact(fName.getText(),lName.getText(),hPhone.getText(),wPhone.getText(),new Address(aSt1.getText(),aSt2.getText(),aCity.getText(),aPostCode.getText(),aProvince.getText(),aCountry.getText()),email.getText(),notes.getText(),new MyDate(Integer.parseInt(day.getText()),Integer.parseInt(month.getText()),Integer.parseInt(year.getText())))){
+                            confirmText.setText(fName.getText()+" "+lName.getText()+" Has Been added succesfully");
+                        } else {
+                            confirmText.setText("Your Address Book is Full, please Contact Technical Support to increase the size of the Address Book");
+                        }
+                    }
                 } else {
-                    confirmText.setText("Your Address Book is Full, please Contact Technical Support to increase the size of the Address Book");
+                    confirmText.setText("You must enter a birthday");
                 }
             }
         });
@@ -131,8 +138,8 @@ public class Assignment2 extends Application {
         
         return v;
     }
-    
-	 public VBox viewAllContacts(){
+   
+    public VBox viewAllContacts(){
         VBox v = new VBox();
         table = new TableView();
         
@@ -178,7 +185,7 @@ public class Assignment2 extends Application {
         return v;
     }
 	
-	public VBox viewContactByCity(){
+    public VBox viewContactByCity(){
         VBox v = new VBox();
         table = new TableView();
         
@@ -247,8 +254,130 @@ public class Assignment2 extends Application {
         return v;
     }
 	
+    public VBox viewEditContact(String firstName,String lastName){
+        VBox v = new VBox();
+        Contact activeC=cMan.findContact(firstName,lastName);
+        Address activeA=activeC.getAddress();
+        MyDate activeB=activeC.getBirthDay();
+        TextField fName=new TextField(firstName);
+        Label fNameLabel=new Label("First Name: ");
+        fNameLabel.setLabelFor(fName);
+        HBox fNameBox = new HBox();
+        fNameBox.getChildren().addAll(fNameLabel,fName);
+        TextField lName=new TextField(lastName);
+        Label lNameLabel=new Label("Last Name: ");
+        lNameLabel.setLabelFor(lName);
+        HBox lNameBox = new HBox();
+        lNameBox.getChildren().addAll(lNameLabel,lName);
+        TextField hPhone=new TextField(activeC.getHomePhone());
+        Label hPhoneLabel=new Label("Home Phone: ");
+        hPhoneLabel.setLabelFor(hPhone);
+        HBox hPhoneBox = new HBox();
+        hPhoneBox.getChildren().addAll(hPhoneLabel,hPhone);
+        TextField wPhone=new TextField(activeC.getWorkPhone());
+        Label wPhoneLabel=new Label("Work Phone: ");
+        wPhoneLabel.setLabelFor(wPhone);
+        HBox wPhoneBox = new HBox();
+        wPhoneBox.getChildren().addAll(wPhoneLabel,wPhone);
+        TextField aSt1=new TextField(activeA.streetInfo1);
+        Label aSt1Label=new Label("Address Street Line 1: ");
+        aSt1Label.setLabelFor(aSt1);
+        HBox aSt1Box = new HBox();
+        aSt1Box.getChildren().addAll(aSt1Label,aSt1);
+        TextField aSt2=new TextField(activeA.streetInfo2);
+        Label aSt2Label=new Label("Street Line 2: ");
+        aSt2Label.setLabelFor(aSt2);
+        HBox aSt2Box = new HBox();
+        aSt2Box.getChildren().addAll(aSt2Label,aSt2);
+        TextField aCity=new TextField(activeA.city);
+        Label aCityLabel=new Label("City: ");
+        aCityLabel.setLabelFor(aCity);
+        HBox aCityBox = new HBox();
+        aCityBox.getChildren().addAll(aCityLabel,aCity);
+        TextField aPostCode=new TextField(activeA.postalCode);
+        Label aPostCodeLabel=new Label("Postal Code: ");
+        aPostCodeLabel.setLabelFor(aPostCode);
+        HBox aPostCodeBox = new HBox();
+        aPostCodeBox.getChildren().addAll(aPostCodeLabel,aPostCode);
+        TextField aProvince=new TextField(activeA.province);
+        Label aProvinceLabel=new Label("Province: ");
+        aProvinceLabel.setLabelFor(aProvince);
+        HBox aProvinceBox = new HBox();
+        aProvinceBox.getChildren().addAll(aProvinceLabel,aProvince);
+        TextField aCountry=new TextField(activeA.country);
+        Label aCountryLabel=new Label("Country: ");
+        aCountryLabel.setLabelFor(aCountry);
+        HBox aCountryBox = new HBox();
+        aCountryBox.getChildren().addAll(aCountryLabel,aCountry);
+        TextField email=new TextField(activeC.getEmail());
+        Label emailLabel=new Label("Email Address: ");
+        emailLabel.setLabelFor(email);
+        HBox emailBox = new HBox();
+        emailBox.getChildren().addAll(emailLabel,email);
+        HBox birthday = new HBox();
+        // public MyDate(int d, int m ,int y){
+        NumberField day = new NumberField();
+        day.setText(""+activeB.getDay());
+        Label dayLabel = new Label("Birthday Day: ");
+        dayLabel.setLabelFor(day);
+        NumberField month = new NumberField();
+        month.setText(""+activeB.getMonth());
+        Label monthLabel = new Label(" Month: ");
+        monthLabel.setLabelFor(month);
+        NumberField year = new NumberField();
+        year.setText(""+activeB.getYear());
+        Label yearLabel = new Label(" Year: ");
+        yearLabel.setLabelFor(year);
+        birthday.getChildren().addAll(dayLabel,day,monthLabel,month,yearLabel,year);
+        TextField notes=new TextField(activeC.getNotes());
+        Label notesLabel=new Label("Notes: ");
+        notesLabel.setLabelFor(notes);
+        HBox notesBox = new HBox();
+        notesBox.getChildren().addAll(notesLabel,notes);
+        Button btnEditContact = new Button("Save Changes");
+        Text confirmText = new Text("Changes will only be applied when you hit save");
+        btnEditContact.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                if(!day.getText().equals("")&&!month.getText().equals("")&&!year.getText().equals("")){
+                    if(Integer.parseInt(month.getText()) >12){
+                        confirmText.setText("Your birth month must be a number between 1 and 12");
+                    } else {
+                        activeC.setFirstName(fName.getText());
+                        activeC.setLastName(lName.getText());
+                        activeC.setHomePhone(hPhone.getText());
+                        activeC.setWorkPhone(wPhone.getText());
+                        activeA.streetInfo1=aSt1.getText();
+                        activeA.streetInfo2=aSt2.getText();
+                        activeA.city=aCity.getText();
+                        activeA.postalCode=aPostCode.getText();
+                        activeA.province=aProvince.getText();
+                        activeA.country=aCountry.getText();
+                        activeC.setAddress(activeA);
+                        activeC.setEmail(email.getText());
+                        activeC.setNotes(notes.getText());
+                        activeB.setDay(Integer.parseInt(day.getText()));
+                        activeB.setMonth(Integer.parseInt(month.getText()));
+                        activeB.setYear(Integer.parseInt(year.getText()));
+                        activeC.setBirthDay(activeB);
+                        confirmText.setText(fName.getText()+" "+lName.getText()+" has been updated succesfully");
+                    }
+                } else {
+                     confirmText.setText("You must enter a birthday");
+                }  
+            } 
+        });
+        v.getChildren().addAll(confirmText,fNameBox,lNameBox,hPhoneBox,wPhoneBox,aSt1Box,aSt2Box,aCityBox,aPostCodeBox,aProvinceBox,aCountryBox,emailBox,birthday,notesBox,btnEditContact);
+        
+        return v;
+    }
+    
     public void init(){
         cMan = new ContactManager(100);
+        for(int x=0;x<4;x++){
+            cMan.addContact("Jeremy"+x,"Buchanan","1234567890","1234567890",new Address("301 Robina Avenue","","Toronto","N0G2V0","ON","Canada"),"100928225@georgebrown.ca","I wanna be the guy",new MyDate(5,10,2007));
+        }
     }
     
     @Override
@@ -275,6 +404,14 @@ public class Assignment2 extends Application {
             @Override
             public void handle(ActionEvent event) {
                 root.setCenter(viewAddContact());
+            }
+        });
+        
+        btn2.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                root.setCenter(viewEditContact("Jeremy0","Buchanan"));
             }
         });
         

@@ -53,12 +53,16 @@ public class Contact {
         return homeAddress.toString();
     }
 
-    public String getAddress()
+    public Address getAddress()
     {
-        return homeAddress.toString();
+        return homeAddress;
     }
 
-
+    public void setAddress(Address newA)
+    {
+        homeAddress = newA;
+    }
+    
     public String getCity(){
         return homeAddress.city;
     }
@@ -92,8 +96,18 @@ public class Contact {
         return birthday.getDay() + "/" + birthday.getMonthShortForm() + "/" + birthday.getYear();
     }
 
-    public int getBirthDay() {
+    public int getbirthday() {
         return birthday.getDay();
+    }
+    
+    public MyDate getBirthDay()
+    {
+        return birthday;
+    }
+    
+    public void setBirthDay(MyDate newD)
+    {
+        birthday = newD;
     }
 
     public void setBirthday(int birthday) {
