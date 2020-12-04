@@ -143,7 +143,10 @@ public class Assignment2 extends Application {
    
    
     public VBox viewAllContacts(){
-        VBox v = new VBox();
+        //Create new VBox to add table/elements to.
+	VBox v = new VBox();
+	
+	//Create new table view to add elements to.
         table = new TableView();
         
         final Label label = new Label("Contacts List:");
@@ -151,6 +154,7 @@ public class Assignment2 extends Application {
 
         table.setEditable(true);
         
+	//Add Table elements.
         TableColumn firstNameCol = new TableColumn("First Name");
         firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
 
@@ -177,7 +181,8 @@ public class Assignment2 extends Application {
         notesCol.setCellValueFactory(new PropertyValueFactory<>("notes"));
 
         table.getColumns().addAll(firstNameCol, lastNameCol, phoneCol, homeAddressCol, emailCol, birthdayCol, notesCol);
-
+        
+	//Add all contacts from contacts list.
         Contact[] contacts = cMan.allContacts();
 
         for (Contact c : contacts) {
