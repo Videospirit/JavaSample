@@ -23,9 +23,9 @@ import javafx.scene.text.Font;
 import javafx.scene.control.cell.PropertyValueFactory;
 /**
  *
- * @author Jeremy, Adam
+ * @author Jeremy, Adam, Ibrahim
  */
-public class Assignment2 extends Application {
+public class assignment2 extends Application {
     static ContactManager cMan;
     private TableView table = new TableView();
 	
@@ -139,6 +139,7 @@ public class Assignment2 extends Application {
         return v;
     }
    
+   
     public VBox viewAllContacts(){
         VBox v = new VBox();
         table = new TableView();
@@ -184,7 +185,73 @@ public class Assignment2 extends Application {
         
         return v;
     }
-	
+  public VBox viewDeleteContact(){       
+        VBox v = new VBox();
+        TextField fName=new TextField();
+        Label fNameLabel=new Label("First Name: ");
+        fNameLabel.setLabelFor(fName);
+        HBox fNameBox = new HBox();
+        fNameBox.getChildren().addAll(fNameLabel,fName);
+        TextField lName=new TextField();
+        Label lNameLabel=new Label("Last Name: ");
+        lNameLabel.setLabelFor(lName);
+        HBox lNameBox = new HBox();
+        lNameBox.getChildren().addAll(lNameLabel,lName);
+        Button btndeleteContact = new Button("Delete");
+        Text confirmText = new Text("Please enter first and last name below to delete a contact");
+        btndeleteContact.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                String f = fName.getText();
+                String l = lName.getText(); 
+                if(cMan.deleteContact(f,l)!=null){
+                   
+                } else {
+                    confirmText.setText(f+" "+l+" was not found to be deleted.");
+                }
+                  
+            } 
+        });
+        v.getChildren().addAll(confirmText,fNameBox,lNameBox,btndeleteContact);
+        
+        return v;
+  }
+         
+    
+ public VBox viewFindContact(){
+        VBox v = new VBox();
+        TextField fName=new TextField();
+        Label fNameLabel=new Label("First Name: ");
+        fNameLabel.setLabelFor(fName);
+        HBox fNameBox = new HBox();
+        fNameBox.getChildren().addAll(fNameLabel,fName);
+        TextField lName=new TextField();
+        Label lNameLabel=new Label("Last Name: ");
+        lNameLabel.setLabelFor(lName);
+        HBox lNameBox = new HBox();
+        lNameBox.getChildren().addAll(lNameLabel,lName);
+        Button btnFindContact = new Button("Find Contact");
+        Text confirmText = new Text("Please enter first and last name to find a contact");
+        btnFindContact.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                String f = fName.getText();
+                String l = lName.getText(); 
+                if(cMan.findContact(f,l)!=null){
+                   
+                } else {
+                    confirmText.setText(f+" "+l+" could not be found.");
+                }
+                  
+            } 
+        });
+        v.getChildren().addAll(confirmText,fNameBox,lNameBox,btnFindContact);
+        
+        return v;
+        
+    }	
     public VBox viewContactByCity(){
         VBox v = new VBox();
         table = new TableView();
@@ -447,7 +514,16 @@ public class Assignment2 extends Application {
             public void handle(ActionEvent event) {
                 root.setCenter(viewEditContact(root));
             }
+        }); 
+        
+        btn3.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                root.setCenter(viewDeleteContact());
+            }
         });
+        
         
 		 btn4.setOnAction(new EventHandler<ActionEvent>() {
             
@@ -456,7 +532,14 @@ public class Assignment2 extends Application {
                 root.setCenter(viewAllContacts());
             }
         });
-         
+         btn5.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                root.setCenter(viewFindContact());
+            }
+        });
+        
          btn6.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
